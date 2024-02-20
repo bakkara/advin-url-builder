@@ -25,6 +25,25 @@
 
     <div class="outputUrl"></div>
 
+    <h2>Для посилань з query параметрами</h2>
+    <label for="urlInputWithParams">URL:</label>
+    <input type="text" class="urlInputWithParams" placeholder="Вставте URL" /><br />
+
+    <label for="sourceInputWithParams">Source:</label>
+    <input type="text" class="sourceInputWithParams" placeholder="Введіть source" /><br />
+
+    <label for="mediumInputWithParams">Medium:</label>
+    <input type="text" class="mediumInputWithParams" placeholder="Введіть medium" /><br />
+
+    <label for="contentInputWithParams">Content:</label>
+    <input type="text" class="contentInputWithParams" placeholder="Введіть content" /><br />
+
+    <button onclick="generateURLWithParams('buy')">Buy</button>
+    <button onclick="generateURLWithParams('back')">Back</button>
+    <button onclick="generateURLWithParams('qr')">QR</button>
+
+    <div class="outputUrlWithParams"></div>
+
     
     <script src="script.js"></script>
   </body>
