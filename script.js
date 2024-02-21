@@ -55,35 +55,31 @@ function updateTable(urlInput) {
 
     const cellTypes = ['back', 'buy', 'qr'];
 
+
     row.innerHTML = '';
+
     cellTypes.forEach((cellType) => {
         const cell = document.createElement('td');
         const generatedUrl = generatedUrls[urlInput] && generatedUrls[urlInput][cellType];
         cell.textContent = generatedUrl || '';
         cell.setAttribute('data-type', cellType);
         row.appendChild(cell);
-    });
-
-
-    const tableContainer = document.getElementById('tableContainer');
-    tableContainer.innerHTML = '';
-
-    tableContainer.insertAdjacentHTML('beforeend', `<table class="links-table">${tableBody.innerHTML}</table>`);
+    })
 }
 
 function generateURLWithParams(buttonType) {
     const urlInputWithParams = document.querySelector('.urlInputWithParams').value;
-    let sourceInputWithParams = document.querySelector('.sourceInputWithParams').value;
-    let mediumInputWithParams = document.querySelector('.mediumInputWithParams').value;
-    let contentInputWithParams = document.querySelector('.contentInputWithParams').value;
-    
+    const sourceInputWithParams = document.querySelector('.sourceInputWithParams').value;
+    const mediumInputWithParams = document.querySelector('.mediumInputWithParams').value;
+    const contentInputWithParams = document.querySelector('.contentInputWithParams').value;
+
     const outputUrlWithParams = document.querySelector('.outputUrlWithParams');
     const urlObjectWithParams = new URL(urlInputWithParams);
 
     const content = contentInputWithParams || urlObjectWithParams.searchParams.get('android') || '';
     const source = sourceInputWithParams || urlObjectWithParams.searchParams.get('client');
     let medium = mediumInputWithParams || 'site';
-    
+
     if (buttonType === 'qr') {
         medium += '_QR';
     }
@@ -100,6 +96,6 @@ function generateURLWithParams(buttonType) {
 
     const urlParamsString = new URLSearchParams(urlObjectWithParams.searchParams).toString();
     
+    updateTable(urlObjectWithParams.toString()); // змінено тут
     outputUrlWithParams.innerHTML = `<p>Згенерований URL: <a href="${urlObjectWithParams.origin + urlObjectWithParams.pathname + '?' + urlParamsString}" target="_blank">${urlObjectWithParams.origin + urlObjectWithParams.pathname + '?' + urlParamsString}</a></p>`;
 }
-
