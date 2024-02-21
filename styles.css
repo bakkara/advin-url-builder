@@ -1,0 +1,46 @@
+table {
+  text-align: left;
+  position: relative;
+  border-collapse: collapse; 
+  background-color: #f6f6f6;
+}
+td, th {
+  border: 1px solid #999;
+  padding: 20px;
+}
+th {
+  background: rgb(69, 66, 66);
+  color: white;
+  border-radius: 0;
+  position: sticky;
+  top: 0;
+  padding: 10px;
+}
+.primary{
+  background-color: #000000
+}
+
+tfoot > tr  {
+  background: black;
+  color: white;
+}
+
+input {
+    width: 100%;
+  }
+
+  input[type=text] {
+    width: 80%;
+    padding: 8px 8px;
+    margin: 4px 0;
+    box-sizing: border-box;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0 auto;
+
+  }
