@@ -1,3 +1,5 @@
+const generatedUrls = {};
+
 function generateURL(buttonType) {
     const urlInput = document.querySelector('.urlInput').value;
     let sourceInput = document.querySelector('.sourceInput').value;
@@ -7,17 +9,15 @@ function generateURL(buttonType) {
     const urlObject = new URL(urlInput);
     let path = urlObject.pathname;
 
-
     if (path.endsWith('/')) {
         path = path.slice(0, -1);
     }
 
     const pathArray = path.split('/');
     
-    
     sourceInput = sourceInput.trim() || urlObject.hostname.split('.')[0];
     mediumInput = mediumInput.trim() || 'site';
-    contentInput = contentInput.trim() || pathArray[pathArray.length - 1].split('.')[0];;
+    contentInput = contentInput.trim() || pathArray[pathArray.length - 1].split('.')[0];
 
     if (buttonType === 'qr') {
         mediumInput += '_QR';
@@ -33,8 +33,43 @@ function generateURL(buttonType) {
     urlObject.searchParams.set('utm_medium', utmParams.medium);
     urlObject.searchParams.set('utm_content', utmParams.content);
 
-    outputUrl.innerHTML = `<p>Згенерований URL: <a href="${urlObject.toString()}" target="_blank">${urlObject.toString()}</a></p>`;
+    const generatedUrl = urlObject.toString();
+
+    generatedUrls[urlInput] = generatedUrls[urlInput] || {};
+    generatedUrls[urlInput][buttonType] = generatedUrl;
+
+    updateTable(urlInput);
+
+    outputUrl.innerHTML = `<p>Згенерований URL: <a href="${generatedUrl}" target="_blank">${generatedUrl}</a></p>`;
 }
+
+function updateTable(urlInput) {
+    const tableBody = document.querySelector('.links-table tbody');
+    let row = tableBody.querySelector(`tr[data-url="${urlInput}"]`);
+
+    if (!row) {
+        row = document.createElement('tr');
+        row.setAttribute('data-url', urlInput);
+        tableBody.appendChild(row);
+    }
+
+    const backCell = document.createElement('td');
+    const buyCell = document.createElement('td');
+    const qrCell = document.createElement('td');
+
+    backCell.textContent = (generatedUrls[urlInput] && generatedUrls[urlInput]['back']) ? generatedUrls[urlInput]['back'] : '';
+    buyCell.textContent = (generatedUrls[urlInput] && generatedUrls[urlInput]['buy']) ? generatedUrls[urlInput]['buy'] : '';
+    qrCell.textContent = (generatedUrls[urlInput] && generatedUrls[urlInput]['qr']) ? generatedUrls[urlInput]['qr'] : '';
+
+    row.innerHTML = '';
+    row.appendChild(backCell.cloneNode(true));
+    row.appendChild(buyCell.cloneNode(true));
+    row.appendChild(qrCell.cloneNode(true));
+
+    const tableContainer = document.getElementById('tableContainer');
+    tableContainer.innerHTML = `<table class="links-table">${tableBody.innerHTML}</table>`;
+}
+
 
 function generateURLWithParams(buttonType) {
     const urlInputWithParams = document.querySelector('.urlInputWithParams').value;
@@ -67,3 +102,4 @@ function generateURLWithParams(buttonType) {
     
     outputUrlWithParams.innerHTML = `<p>Згенерований URL: <a href="${urlObjectWithParams.origin + urlObjectWithParams.pathname + '?' + urlParamsString}" target="_blank">${urlObjectWithParams.origin + urlObjectWithParams.pathname + '?' + urlParamsString}</a></p>`;
 }
+
