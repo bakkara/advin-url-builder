@@ -53,23 +53,23 @@ function updateTable(urlInput) {
         tableBody.appendChild(row);
     }
 
-    const backCell = document.createElement('td');
-    const buyCell = document.createElement('td');
-    const qrCell = document.createElement('td');
-
-    backCell.textContent = (generatedUrls[urlInput] && generatedUrls[urlInput]['back']) ? generatedUrls[urlInput]['back'] : '';
-    buyCell.textContent = (generatedUrls[urlInput] && generatedUrls[urlInput]['buy']) ? generatedUrls[urlInput]['buy'] : '';
-    qrCell.textContent = (generatedUrls[urlInput] && generatedUrls[urlInput]['qr']) ? generatedUrls[urlInput]['qr'] : '';
+    const cellTypes = ['back', 'buy', 'qr'];
 
     row.innerHTML = '';
-    row.appendChild(backCell.cloneNode(true));
-    row.appendChild(buyCell.cloneNode(true));
-    row.appendChild(qrCell.cloneNode(true));
+    cellTypes.forEach((cellType) => {
+        const cell = document.createElement('td');
+        const generatedUrl = generatedUrls[urlInput] && generatedUrls[urlInput][cellType];
+        cell.textContent = generatedUrl || '';
+        cell.setAttribute('data-type', cellType);
+        row.appendChild(cell);
+    });
+
 
     const tableContainer = document.getElementById('tableContainer');
-    tableContainer.innerHTML = `<table class="links-table">${tableBody.innerHTML}</table>`;
-}
+    tableContainer.innerHTML = '';
 
+    tableContainer.insertAdjacentHTML('beforeend', `<table class="links-table">${tableBody.innerHTML}</table>`);
+}
 
 function generateURLWithParams(buttonType) {
     const urlInputWithParams = document.querySelector('.urlInputWithParams').value;
