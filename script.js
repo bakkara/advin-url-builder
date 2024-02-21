@@ -40,7 +40,7 @@ function generateURL(buttonType) {
 
     updateTable(urlInput);
 
-    outputUrl.innerHTML = `<p>Згенерований URL: <a href="${generatedUrl}" target="_blank">${generatedUrl}</a></p>`;
+    outputUrl.innerHTML = `<p>Згенерований URL: <p class="new-url">${generatedUrl}</a></p>`;
 }
 
 function updateTable(urlInput) {
@@ -96,6 +96,11 @@ function generateURLWithParams(buttonType) {
 
     const urlParamsString = new URLSearchParams(urlObjectWithParams.searchParams).toString();
     
-    updateTable(urlObjectWithParams.toString()); // змінено тут
-    outputUrlWithParams.innerHTML = `<p>Згенерований URL: <p class="new-url">${urlObjectWithParams.origin + urlObjectWithParams.pathname + '?' + urlParamsString}</=></p>`;
+    const generatedUrl = (urlObjectWithParams.origin + urlObjectWithParams.pathname + '?' + urlParamsString).toString();
+
+    generatedUrls[urlInputWithParams] = generatedUrls[urlInputWithParams] || {};
+    generatedUrls[urlInputWithParams][buttonType] = generatedUrl;
+
+    updateTable(urlInputWithParams);
+    outputUrlWithParams.innerHTML = `<p>Згенерований URL: <p class="new-url">${generatedUrl}</=></p>`;
 }
