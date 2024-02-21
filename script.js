@@ -97,5 +97,5 @@ function generateURLWithParams(buttonType) {
     const urlParamsString = new URLSearchParams(urlObjectWithParams.searchParams).toString();
     
     updateTable(urlObjectWithParams.toString()); // змінено тут
-    outputUrlWithParams.innerHTML = `<p>Згенерований URL: <a href="${urlObjectWithParams.origin + urlObjectWithParams.pathname + '?' + urlParamsString}" target="_blank">${urlObjectWithParams.origin + urlObjectWithParams.pathname + '?' + urlParamsString}</a></p>`;
+    outputUrlWithParams.innerHTML = `<p>Згенерований URL: <p class="new-url">${urlObjectWithParams.origin + urlObjectWithParams.pathname + '?' + urlParamsString}</=></p>`;
 }

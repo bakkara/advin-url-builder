@@ -4,58 +4,68 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>URL-Builder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.1.0/modern-normalize.min.css"
+        integrity="sha512-wpPYUAdjBVSE4KJnH1VR1HeZfpl1ub8YT/NKx4PuQ5NmX2tKuGu6U/JRp5y+Y8XG2tV+wKQpNHVUX03MfMFn9Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="container">
-    <label for="urlInput">URL:</label>
-    <input type="text" class="urlInput" placeholder="Вставте URL"><br>
+      <div class="forms-container">
+        <form class="without-params">
+          <h2>Для посилань без query параметрів</h2>
+          <label for="urlInput">URL:</label>
+          <input type="text" class="urlInput" placeholder="Вставте URL">
+          
+          <label for="sourceInput">Source:</label>
+          <input type="text" class="sourceInput" placeholder="Введіть source">
+          
+          <label for="mediumInput">Medium: </label>
+          <input type="text" class="mediumInput" placeholder="Введіть medium">
+         
+          <label for="contentInput">Content: </label>
+          <input type="text" class="contentInput" placeholder="Введіть content">
+         
+          
+          <button onclick="generateURL('buy')">Buy</button>
+          <button onclick="generateURL('back')">Back</button>
+          <button onclick="generateURL('qr')">QR</button>
 
-    <label for="sourceInput">Source:</label>
-    <input type="text" class="sourceInput" placeholder="Введіть source"><br>
+          <div class="outputUrl"></div>
+        </form>
 
-    <label for="mediumInput">Medium:</label>
-    <input type="text" class="mediumInput" placeholder="Введіть medium"><br>
+        <div class="with-params">
+          <h2>Для посилань з query параметрами</h2>
+          <label for="urlInputWithParams">URL:</label>
+          <input type="text" class="urlInputWithParams" placeholder="Вставте URL" />
 
-    <label for="contentInput">Content:</label>
-    <input type="text" class="contentInput" placeholder="Введіть content"><br>
+          <label for="sourceInputWithParams">Source:</label>
+          <input type="text" class="sourceInputWithParams" placeholder="Введіть source" />
 
-    <button onclick="generateURL('buy')">Buy</button>
-    <button onclick="generateURL('back')">Back</button>
-    <button onclick="generateURL('qr')">QR</button>
+          <label for="mediumInputWithParams">Medium:</label>
+          <input type="text" class="mediumInputWithParams" placeholder="Введіть medium" />
 
-    <div class="outputUrl"></div>
+          <label for="contentInputWithParams">Content:</label>
+          <input type="text" class="contentInputWithParams" placeholder="Введіть content" />
 
-    <h2>Для посилань з query параметрами</h2>
-    <label for="urlInputWithParams">URL:</label>
-    <input type="text" class="urlInputWithParams" placeholder="Вставте URL" /><br />
+          <button onclick="generateURLWithParams('buy')">Buy</button>
+          <button onclick="generateURLWithParams('back')">Back</button>
+          <button onclick="generateURLWithParams('qr')">QR</button>
 
-    <label for="sourceInputWithParams">Source:</label>
-    <input type="text" class="sourceInputWithParams" placeholder="Введіть source" /><br />
-
-    <label for="mediumInputWithParams">Medium:</label>
-    <input type="text" class="mediumInputWithParams" placeholder="Введіть medium" /><br />
-
-    <label for="contentInputWithParams">Content:</label>
-    <input type="text" class="contentInputWithParams" placeholder="Введіть content" /><br />
-
-    <button onclick="generateURLWithParams('buy')">Buy</button>
-    <button onclick="generateURLWithParams('back')">Back</button>
-    <button onclick="generateURLWithParams('qr')">QR</button>
-
-    <div class="outputUrlWithParams"></div>
-
-    <h2>Згенеровані посилання</h2>
-    <table class="links-table">
-      <thead>
-        <tr>
-          <th class="back">BACK</th>
-          <th class="buy">BUY</th>
-          <th class="qr">QR</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+          <div class="outputUrlWithParams"></div>
+        </div>
+      </div>
+      <h2>Згенеровані посилання</h2>
+      <table class="links-table">
+        <thead>
+          <tr>
+            <th class="back">BACK</th>
+            <th class="buy">BUY</th>
+            <th class="qr">QR</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
     <script src="script.js"></script>
   </body>
