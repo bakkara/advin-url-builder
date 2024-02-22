@@ -19,9 +19,6 @@ function generateURL(buttonType) {
     mediumInput = mediumInput.trim() || 'site';
     contentInput = contentInput.trim() || pathArray[pathArray.length - 1].split('.')[0];
 
-    if (buttonType === 'qr') {
-        mediumInput += '_QR';
-    }
 
     const utmParams = {
         source: sourceInput,
@@ -34,7 +31,10 @@ function generateURL(buttonType) {
     urlObject.searchParams.set('utm_content', utmParams.content);
 
     const generatedUrl = urlObject.toString();
-
+    if (buttonType === 'qr') {
+        mediumInput += '_QR';
+        generateQRCode(generatedUrl, utmParams.content); 
+        }
     generatedUrls[urlInput] = generatedUrls[urlInput] || {};
     generatedUrls[urlInput][buttonType] = generatedUrl;
 
@@ -80,9 +80,7 @@ function generateURLWithParams(buttonType) {
     const source = sourceInputWithParams || urlObjectWithParams.searchParams.get('client');
     let medium = mediumInputWithParams || 'site';
 
-    if (buttonType === 'qr') {
-        medium += '_QR';
-    }
+    
 
     const utmParams = {
         source: source,
@@ -97,10 +95,35 @@ function generateURLWithParams(buttonType) {
     const urlParamsString = new URLSearchParams(urlObjectWithParams.searchParams).toString();
     
     const generatedUrl = (urlObjectWithParams.origin + urlObjectWithParams.pathname + '?' + urlParamsString).toString();
-
+    
+    if (buttonType === 'qr') {
+            medium += '_QR';
+            generateQRCode(generatedUrl, utmParams.content);
+        }
     generatedUrls[urlInputWithParams] = generatedUrls[urlInputWithParams] || {};
     generatedUrls[urlInputWithParams][buttonType] = generatedUrl;
 
     updateTable(urlInputWithParams);
     outputUrlWithParams.innerHTML = `<p>Згенерований URL: <p class="new-url">${generatedUrl}</=></p>`;
+}
+
+function generateQRCode(url, name) {
+    const qrcode = new QRCode(document.getElementById("qrcode"), url);
+    
+    
+    // Якщо треба задати колір, розмір
+    // const qrcode = new QRCode(document.getElementById("qrcode"), {
+    //     text: "http://jindo.dev.naver.com/collie",
+    //     width: 128,
+    //     height: 128,
+    //     colorDark : "#000000",
+    //     colorLight : "#ffffff",
+    //     correctLevel : QRCode.CorrectLevel.H
+    // });
+
+    const qrCodeDataURL = document.getElementById("qrcode").getElementsByTagName("canvas")[0].toDataURL("image/png");
+    const downloadLink = document.createElement('a');
+    downloadLink.href = qrCodeDataURL;
+    downloadLink.download = `${name}.png`;
+    downloadLink.click();
 }
