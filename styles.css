@@ -72,3 +72,14 @@ tfoot > tr  {
     width: 60px;
     height: 30px;
   }
+
+  .qrcode {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .links-table {
+    margin-bottom: 20px;
+  }

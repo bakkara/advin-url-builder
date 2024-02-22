@@ -31,10 +31,12 @@ function generateURL(buttonType) {
     urlObject.searchParams.set('utm_content', utmParams.content);
 
     const generatedUrl = urlObject.toString();
+
     if (buttonType === 'qr') {
         mediumInput += '_QR';
         generateQRCode(generatedUrl, utmParams.content); 
         }
+
     generatedUrls[urlInput] = generatedUrls[urlInput] || {};
     generatedUrls[urlInput][buttonType] = generatedUrl;
 
@@ -108,18 +110,23 @@ function generateURLWithParams(buttonType) {
 }
 
 function generateQRCode(url, name) {
+    
+    const qrCodeName = document.createElement("p");
+    qrCodeName.textContent = `${name}: `;
+    document.getElementById("qrcode").appendChild(qrCodeName);
+
     const qrcode = new QRCode(document.getElementById("qrcode"), url);
     
     
     // Якщо треба задати колір, розмір
     // const qrcode = new QRCode(document.getElementById("qrcode"), {
-    //     text: "http://jindo.dev.naver.com/collie",
+    //     text: url,
     //     width: 128,
     //     height: 128,
     //     colorDark : "#000000",
     //     colorLight : "#ffffff",
     //     correctLevel : QRCode.CorrectLevel.H
-    // });
+    // });    
 
     const qrCodeDataURL = document.getElementById("qrcode").getElementsByTagName("canvas")[0].toDataURL("image/png");
     const downloadLink = document.createElement('a');
