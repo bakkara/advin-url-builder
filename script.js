@@ -18,7 +18,11 @@ function generateURL(buttonType) {
     sourceInput = sourceInput.trim() || urlObject.hostname.split('.')[0];
     mediumInput = mediumInput.trim() || 'site';
     contentInput = contentInput.trim() || pathArray[pathArray.length - 1].split('.')[0];
-
+    
+    if (buttonType === 'qr') {
+        mediumInput += '_QR';
+        sourceInput += '_QR'
+    }
 
     const utmParams = {
         source: sourceInput,
@@ -33,7 +37,6 @@ function generateURL(buttonType) {
     const generatedUrl = urlObject.toString();
 
     if (buttonType === 'qr') {
-        mediumInput += '_QR';
         generateQRCode(generatedUrl, utmParams.content); 
         }
 
@@ -79,10 +82,14 @@ function generateURLWithParams(buttonType) {
     const urlObjectWithParams = new URL(urlInputWithParams);
 
     const content = contentInputWithParams || urlObjectWithParams.searchParams.get('android') || '';
-    const source = sourceInputWithParams || urlObjectWithParams.searchParams.get('client');
+    let source = sourceInputWithParams || urlObjectWithParams.searchParams.get('client');
     let medium = mediumInputWithParams || 'site';
 
-    
+    if (buttonType === 'qr') {
+        medium += '_QR';
+        source += '_QR'
+    }
+
 
     const utmParams = {
         source: source,
@@ -99,9 +106,8 @@ function generateURLWithParams(buttonType) {
     const generatedUrl = (urlObjectWithParams.origin + urlObjectWithParams.pathname + '?' + urlParamsString).toString();
     
     if (buttonType === 'qr') {
-            medium += '_QR';
-            generateQRCode(generatedUrl, utmParams.content);
-        }
+        generateQRCode(generatedUrl, utmParams.content);
+    }
     generatedUrls[urlInputWithParams] = generatedUrls[urlInputWithParams] || {};
     generatedUrls[urlInputWithParams][buttonType] = generatedUrl;
 
@@ -116,7 +122,6 @@ function generateQRCode(url, name) {
     document.getElementById("qrcode").appendChild(qrCodeName);
 
     const qrcode = new QRCode(document.getElementById("qrcode"), url);
-    
     
     // Якщо треба задати колір, розмір
     // const qrcode = new QRCode(document.getElementById("qrcode"), {
