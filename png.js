@@ -29,6 +29,9 @@ function generateURL(buttonType) {
         medium: mediumInput,
         content: contentInput + '_' + buttonType.toUpperCase()
     };
+    if (buttonType === 'utm') {
+        utmParams.content = contentInput
+    }
 
     urlObject.searchParams.set('utm_source', utmParams.source);
     urlObject.searchParams.set('utm_medium', utmParams.medium);
@@ -58,7 +61,7 @@ function updateTable(urlInput) {
         tableBody.appendChild(row);
     }
 
-    const cellTypes = ['back', 'buy', 'qr'];
+    const cellTypes = ['back', 'buy', 'utm', 'qr'];
 
 
     row.innerHTML = '';
@@ -96,6 +99,10 @@ function generateURLWithParams(buttonType) {
         medium: medium,
         content: content + '_' + buttonType.toUpperCase()
     };
+    
+    if (buttonType === 'utm') {
+        utmParams.content = content
+    }
 
     urlObjectWithParams.searchParams.set('utm_source', utmParams.source);
     urlObjectWithParams.searchParams.set('utm_medium', utmParams.medium);

@@ -28,7 +28,9 @@
 
           <button type="button" onclick="generateURL('buy')">Buy</button>
           <button type="button" onclick="generateURL('back')">Back</button>
+          <button type="button" onclick="generateURL('utm')">UTM</button>
           <button type="button" onclick="generateURL('qr')">QR</button>
+          
 
           <div class="outputUrl"></div>
         </form>
@@ -49,6 +51,7 @@
 
           <button onclick="generateURLWithParams('buy')">Buy</button>
           <button onclick="generateURLWithParams('back')">Back</button>
+          <button onclick="generateURLWithParams('utm')">UTM</button>
           <button onclick="generateURLWithParams('qr')">QR</button>
 
           <div class="outputUrlWithParams"></div>
@@ -56,11 +59,13 @@
       </div>
       
       <h2>Згенеровані посилання</h2>
+      
       <table class="links-table">
         <thead>
           <tr>
             <th class="back">BACK</th>
             <th class="buy">BUY</th>
+            <th class="utm">UTM</th>
             <th class="qr">QR</th>
           </tr>
         </thead>
