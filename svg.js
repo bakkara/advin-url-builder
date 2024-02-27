@@ -38,21 +38,8 @@ function generateURL(buttonType) {
 
 
     if (buttonType === 'qr') {
-        const radioButtons = document.getElementsByName('qrType');
-        let selectedType;
-
-        for (const radioButton of radioButtons) {
-            if (radioButton.checked) {
-                selectedType = radioButton.value;
-                break;
-            }
-        }
-        if (selectedType === 'svg') {
+       
             generateQRCodeSvg(generatedUrl, utmParams.content);
-        } else if (selectedType === 'png') {
-            generateQRCodePng(generatedUrl, utmParams.content);
-        }
-
         }
 
     generatedUrls[urlInput] = generatedUrls[urlInput] || {};
@@ -121,7 +108,7 @@ function generateURLWithParams(buttonType) {
     const generatedUrl = (urlObjectWithParams.origin + urlObjectWithParams.pathname + '?' + urlParamsString).toString();
     
     if (buttonType === 'qr') {
-        generateQRCode(generatedUrl, utmParams.content);
+        generateQRCodeSvg(generatedUrl, utmParams.content);
     }
     generatedUrls[urlInputWithParams] = generatedUrls[urlInputWithParams] || {};
     generatedUrls[urlInputWithParams][buttonType] = generatedUrl;
@@ -129,25 +116,7 @@ function generateURLWithParams(buttonType) {
     updateTable(urlInputWithParams);
     outputUrlWithParams.innerHTML = `<p>Згенерований URL: <p class="new-url">${generatedUrl}</=></p>`;
 }
-function generateQRCodePng(url, name) {
-    const qrCodeName = document.createElement("p");
-    qrCodeName.textContent = `${name}: `;
-    document.getElementById("qrcode").appendChild(qrCodeName);
 
-    const qrcodePng = new QRCode(document.createElement("div"), url);
-
-    const canvas = qrcodePng._htOption.canvas;
-    const ctx = canvas.getContext("2d");
-
-    ctx.drawImage(qrcodePng._oQRCode.createImgTag(), 0, 0, canvas.width, canvas.height);
-
-    const qrCodeDataURL = canvas.toDataURL("image/png");
-    const downloadLink = document.createElement('a');
-    downloadLink.href = qrCodeDataURL;
-    downloadLink.download = `${name}.png`;
-    downloadLink.click();
-    document.getElementById("qrcode").innerHTML = '';
-}
 
 function generateQRCodeSvg(url, name) {
     const qrCodeName = document.createElement("p");
@@ -176,55 +145,3 @@ function generateQRCodeSvg(url, name) {
 
     document.getElementById("qrcode").innerHTML = '';
 }
-
-// function generateQRCodePng(url, name) {
-    
-//     const qrCodeName = document.createElement("p");
-//     qrCodeName.textContent = `${name}: `;
-//     document.getElementById("qrcode").appendChild(qrCodeName);
-
-//     const qrcode = new QRCode(document.getElementById("qrcode"), url);
-    
-//     // Якщо треба задати колір, розмір
-//     // const qrcode = new QRCode(document.getElementById("qrcode"), {
-//     //     text: url,
-//     //     width: 128,
-//     //     height: 128,
-//     //     colorDark : "#000000",
-//     //     colorLight : "#ffffff",
-//     //     correctLevel : QRCode.CorrectLevel.H
-//     // });    
-
-//     const qrCodeDataURL = document.getElementById("qrcode").getElementsByTagName("canvas")[0].toDataURL("image/png");
-//     const downloadLink = document.createElement('a');
-//     downloadLink.href = qrCodeDataURL;
-//     downloadLink.download = `${name}.png`;
-//     downloadLink.click();
-// }
-
-// function generateQRCodeSvg(url, name) {
-//     const qrCodeName = document.createElement("p");
-//     qrCodeName.textContent = `${name}: `;
-//     document.getElementById("qrcode").appendChild(qrCodeName);
-
-//     const qrcode = new QRCode({
-//         content: url,
-//         padding: 4,
-//         width: 256,
-//         height: 256,
-//         color: "#000000",
-//         background: "#ffffff",
-//         ecl: "M",
-//         join: true,
-//         xmlDeclaration: false,
-//     });
-
-//      const svgString = qrcode.svg();
-
-//     const downloadLink = document.createElement('a');
-//     downloadLink.href = 'data:image/svg+xml,' + encodeURIComponent(svgString);
-//     downloadLink.download = `${name}.svg`;
-//     downloadLink.textContent = 'Завантажити SVG';
-//     downloadLink.click();
-//     document.getElementById("qrcode").appendChild(downloadLink);
-// }

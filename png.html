@@ -11,13 +11,7 @@
   </head>
   <body>
     <div class="container">
-      <h1>UTM Generator</h1>
-      <h2 class="title-choice">Обери формат QR</h2>
-      <div class="button-container">
-      <a href="png.html" class="button-choice">PNG</a>
-      <a href="svg.html" class="button-choice">SVG</a>
-    </div>
-      <!-- <div class="forms-container">
+      <div class="forms-container">
         <form class="without-params">
           <h2>Для посилань без query параметрів</h2>
           <label for="urlInput">URL:</label>
@@ -31,16 +25,6 @@
          
           <label for="contentInput">Content: </label>
           <input type="text" class="contentInput" placeholder="Введіть content">
-         
-          <div class="radio-button">
-            <input type="radio" name="qrType" value="png" id="qrPngRadio" checked />
-            <label class="radio-label" for="qrPngRadio">QR.png</label>
-          </div>
-
-          <div class="radio-button">
-            <input type="radio" name="qrType" value="svg" id="qrSvgRadio" />
-            <label class="radio-label" for="qrSvgRadio">QR.svg</label>  
-          </div>
 
           <button type="button" onclick="generateURL('buy')">Buy</button>
           <button type="button" onclick="generateURL('back')">Back</button>
@@ -82,10 +66,9 @@
         </thead>
         <tbody></tbody>
       </table>
-      <div id="qrcode" class="qrcode"></div> -->
+      <div id="qrcode" class="qrcode"></div>
     </div>
-    <!-- <script src="script.js"></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode-svg@1.1.0/lib/qrcode.min.js"></script> -->
+    <script src="png.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   </body>
 </html>
