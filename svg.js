@@ -51,7 +51,25 @@ function generateURL(buttonType) {
 
     updateTable(urlInput);
 
-    outputUrl.innerHTML = `<p>Згенерований URL: <p class="new-url">${generatedUrl}</a></p>`;
+    outputUrl.innerHTML = `
+        <p>Згенерований URL: <p class="new-url">${generatedUrl}</p></p>
+        <button type='button' class="shorten-button" onclick="shortenUrl('${generatedUrl}')">Short link</button>
+    `;
+}
+
+function shortenUrl(originalUrl) {
+    const apiUrl = 'https://is.gd/create.php?format=json&url=' + encodeURIComponent(originalUrl);
+    const outputUrl = document.querySelector('.outputUrl');
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            const shortenedUrl = data.shorturl;
+            outputUrl.innerHTML = `<p>Скорочений URL: <p class="new-url">${shortenedUrl}</p></p>`
+            // alert('Скорочений URL: ' + shortenedUrl);
+        })
+        .catch(error => {
+            console.error('Помилка при скороченні URL:', error);
+        });
 }
 
 function updateTable(urlInput) {

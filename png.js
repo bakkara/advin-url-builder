@@ -48,7 +48,7 @@ function generateURL(buttonType) {
 
     updateTable(urlInput);
 
-    outputUrl.innerHTML = `<p>Згенерований URL: <p class="new-url">${generatedUrl}</a></p>`;
+    outputUrl.innerHTML = `<p>Згенерований URL: <p class="new-url">${generatedUrl}</p></p>`;
 }
 
 function updateTable(urlInput) {
@@ -99,7 +99,7 @@ function generateURLWithParams(buttonType) {
         medium: medium,
         content: content + '_' + buttonType.toUpperCase()
     };
-    
+
     if (buttonType === 'utm') {
         utmParams.content = content
     }

@@ -67,7 +67,7 @@ tfoot > tr  {
     border-radius: 5px;
     border: 2px solid rgb(205, 198, 198);
     margin-right: 10px;
-    width: 70px;
+    width: auto;
     height: 30px;
   }
 
