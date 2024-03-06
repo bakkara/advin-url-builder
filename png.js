@@ -47,9 +47,45 @@ function generateURL(buttonType) {
     generatedUrls[urlInput][buttonType] = generatedUrl;
 
     updateTable(urlInput);
+    
+    outputUrl.innerHTML = `
 
-    outputUrl.innerHTML = `<p>Згенерований URL: <p class="new-url">${generatedUrl}</p></p>`;
+        <p>Згенерований URL: <p class="new-url">${generatedUrl}</p></p>
+
+        <button type='button' class="shorten-button" onclick="shortenUrl('${generatedUrl}')">Short link</button>
+
+    `;
+
 }
+
+function shortenUrl(originalUrl) {
+    const apiUrl = 'https://is.gd/create.php?format=json&url=' + encodeURIComponent(originalUrl);
+    const outputUrl = document.querySelector('.outputUrl');
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            const shortenedUrl = data.shorturl;
+            outputUrl.insertAdjacentHTML('beforeend', `<p>Скорочений URL: <p class="new-url">${shortenedUrl}</p></p>`);
+        })
+        .catch(error => {
+            console.error('Помилка при скороченні URL:', error);
+        });
+    }
+
+    function shortenUrlWithParams(originalUrl) {
+        const apiUrl = 'https://is.gd/create.php?format=json&url=' + encodeURIComponent(originalUrl);
+        const outputUrlWithParams = document.querySelector('.outputUrlWithParams');
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const shortenedUrl = data.shorturl;
+                outputUrlWithParams.insertAdjacentHTML('beforeend', `<p>Скорочений URL: <p class="new-url">${shortenedUrl}</p></p>`);
+            })
+            .catch(error => {
+                console.error('Помилка при скороченні URL:', error);
+            });
+        }
+
 
 function updateTable(urlInput) {
     const tableBody = document.querySelector('.links-table tbody');
@@ -84,8 +120,9 @@ function generateURLWithParams(buttonType) {
     const outputUrlWithParams = document.querySelector('.outputUrlWithParams');
     const urlObjectWithParams = new URL(urlInputWithParams);
 
-    const content = contentInputWithParams || urlObjectWithParams.searchParams.get('android') || '';
-    let source = sourceInputWithParams || urlObjectWithParams.searchParams.get('client');
+
+    const content = contentInputWithParams || urlObjectWithParams.searchParams.get('model') || '';
+    let source = sourceInputWithParams || urlObjectWithParams.hostname.split('.')[0];
     let medium = mediumInputWithParams || 'site';
 
     if (buttonType === 'qr') {
@@ -112,14 +149,17 @@ function generateURLWithParams(buttonType) {
     
     const generatedUrl = (urlObjectWithParams.origin + urlObjectWithParams.pathname + '?' + urlParamsString).toString();
     
-    if (buttonType === 'qr') {
-        generateQRCode(generatedUrl, utmParams.content);
-    }
+    // if (buttonType === 'qr') {
+    //     generateQRCode(generatedUrl, utmParams.content);
+    // }
+    
     generatedUrls[urlInputWithParams] = generatedUrls[urlInputWithParams] || {};
     generatedUrls[urlInputWithParams][buttonType] = generatedUrl;
 
     updateTable(urlInputWithParams);
-    outputUrlWithParams.innerHTML = `<p>Згенерований URL: <p class="new-url">${generatedUrl}</=></p>`;
+    outputUrlWithParams.innerHTML = ` <p>Згенерований URL: <p class="new-url">${generatedUrl}</p></p>
+
+    <button type='button' class="shorten-button" onclick="shortenUrlWithParams('${generatedUrl}')">Short link</button>`;
 }
 
 function generateQRCode(url, name) {
