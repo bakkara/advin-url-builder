@@ -40,6 +40,7 @@ function generateURL(buttonType) {
     const generatedUrl = urlObject.toString();
 
     if (buttonType === 'qr') {
+        document.getElementById("qrcode").innerHTML = '';
         generateQRCode(generatedUrl, utmParams.content); 
         }
 
